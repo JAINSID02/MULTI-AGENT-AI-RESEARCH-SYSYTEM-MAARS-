@@ -1,5 +1,5 @@
 from langchain.agents import create_agent
-from langchain_ollama import ChatOllama
+from langchain_mistralai import ChatMistralAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from tools import web_search , scrape_url
@@ -7,7 +7,11 @@ from tools import web_search , scrape_url
 import os
 from dotenv import load_dotenv
 
-llm=ChatOllama(model="qwen3:8b")
+llm=ChatMistralAI(
+    model="mistral-small-latest",
+    api_key=os.getenv("MISTRAL_API_KEY"),
+    temperature=0
+)
 
 def build_search_agent():
     return create_agent(
@@ -39,7 +43,7 @@ Be detailed, factual and professional.""")])
 
 writer_chain = writer_prompt | llm | StrOutputParser()
 
-critic_prompt = ChatPromptTemplate.from_mesaages([("system", "You are a sharp and constructive research critic. Be honest and specific."),
+critic_prompt = ChatPromptTemplate.from_messages([("system", "You are a sharp and constructive research critic. Be honest and specific."),
     ("human", """Review the research report below and evaluate it strictly.
 
 Report:
@@ -60,6 +64,6 @@ Areas to Improve:
 One line verdict:
 ..."""),])
 
-critic_chain = critic_prompt | llm | StrOutputParser
+critic_chain = critic_prompt | llm | StrOutputParser()
 
 

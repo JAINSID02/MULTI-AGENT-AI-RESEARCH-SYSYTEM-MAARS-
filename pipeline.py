@@ -18,7 +18,7 @@ def run_reserach_pipeline(topic:str)->dict :
     print(" Step 1  - Reader Agent is scraping the resources")
     print("="*50     )
 
-    reader_agent = build_reader_agent
+    reader_agent = build_reader_agent()
     reader_result = reader_agent.invoke({"messages":[("user",
                                        f"Based on the following research results about {topic} "
                                        f"Pick the most relevant URL and scrape it for deeper content \n\n"
@@ -55,9 +55,8 @@ def run_reserach_pipeline(topic:str)->dict :
     return state
 
 if __name__ == "__main__":
-    topic = input("\n enter research topic")
+    topic = input("\n enter research topic    ")
     run_reserach_pipeline(topic)
-
      
     
 
