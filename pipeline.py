@@ -54,9 +54,7 @@ def run_reserach_pipeline(topic:str)->dict :
 
     return state
 
-if __name__ == "__main__":
-    topic = input("\n enter research topic    ")
-    run_reserach_pipeline(topic)
+
      
     
 
